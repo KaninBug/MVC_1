@@ -1,14 +1,9 @@
-import java.awt.Font;
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-
+import javax.swing.*;
 
 public class View {
     JFrame main;
@@ -19,7 +14,7 @@ public class View {
     String strColor;
 
     View() {
-        main = new JFrame();
+        main = new JFrame("Register Cow's Color");
         main.setExtendedState(JFrame.MAXIMIZED_BOTH);
         detailSW();
         main.setLayout(null);
@@ -32,17 +27,18 @@ public class View {
         colorLabel = new JLabel("color");
         inputColor = new JTextField();
         checkColor = new JButton("next");
-        panel.setLayout(null);
+        panel.setBackground(Color.lightGray);
+        panel.setBounds(0, 0, 1920, 1080);
         colorLabel.setBounds(900,200,100,50);
         inputColor.setBounds(720,300,400,50);
         checkColor.setBounds(860,400,100,50);
+
         buttonAction();
 
-        main.add(panel);
         main.add(colorLabel);
         main.add(inputColor);
         main.add(checkColor);
-
+        main.add(panel);
     }
 
     void buttonAction() {
@@ -54,15 +50,25 @@ public class View {
         public void actionPerformed(ActionEvent e) {
             JButton source = (JButton)e.getSource();
             if(source == checkColor) {
-                strColor = inputColor.getText();
+                strColor = inputColor.getText().toLowerCase();
                 Controller con = new Controller(strColor, 2);
                 boolean checkCow = con.checkColorCow();
                 if(checkCow == true) {
-                    
+                    if(strColor.equals("white")) {
+                        ViewWhite w = new ViewWhite();
+                        main.dispose();
+                    }
+                    else if(strColor.equals("brown")) {
+                        ViewBrown b = new ViewBrown();
+                        main.dispose();
+                    }
+                    if(strColor.equals("pink")) {
+                        ViewPink p = new ViewPink();
+                        main.dispose();
+                    }
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Nah");
-                    System.out.println(checkCow);
+                    JOptionPane.showMessageDialog(null, "Color Not Match. Please input again.");
                 }  
             }
         }

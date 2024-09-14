@@ -10,11 +10,11 @@ public class Controller extends Model{
     public boolean checkColorCow() {
         for(String e : getColorList()) {
             if(color.equals(e)) {
-                System.out.println();
                 return true;
             }
         }
         return false;
     }
+
 
 }
